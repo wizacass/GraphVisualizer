@@ -10,11 +10,9 @@ public class Window extends JFrame
     {
         super(title);
 
-        var button = new JButton("Click");
-        button.setBounds(130,100,100, 40);
-        add(button);
+        add(new MenuPanel());
 
-        setSize(constants.Width(), constants.Height());
+        setSize(constants.WindowWidth(), constants.WindowHeight());
         this.setResizable(false);
         setLayout(null);
         setVisible(true);

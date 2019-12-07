@@ -1,20 +1,38 @@
 package graph_visualizer.graphics;
 
+import java.awt.*;
+
 class WindowConstants
 {
-    private final int width = 360;
-    private final int height = 480;
+    private final int gridScale = 32;
     private final int scale = 1;
+
+    private final Color menuPanelColor = Color.gray;
 
     WindowConstants() {}
 
-    int Width()
+    int WindowWidth()
     {
-        return width * scale;
+        return 8 * gridScale * scale;
     }
 
-    int Height()
+    int WindowHeight()
     {
-        return height * scale;
+        return 12 * gridScale * scale;
+    }
+
+    int ButtonWidth()
+    {
+        return 2 * gridScale * scale;
+    }
+
+    int ButtonHeight()
+    {
+        return (int)(gridScale * scale / 2);
+    }
+
+    Color MenuPanelColor()
+    {
+        return menuPanelColor;
     }
 }
