@@ -21,6 +21,7 @@ public class Window extends JFrame
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLayout(null);
+        this.centerWindow();
         this.setVisible(true);
     }
 
@@ -46,5 +47,13 @@ public class Window extends JFrame
         dimensions.height = height;
 
         return dimensions;
+    }
+
+    private void centerWindow()
+    {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+        this.setLocation(x, y);
     }
 }
