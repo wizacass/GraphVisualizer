@@ -1,9 +1,11 @@
 package graph_visualizer;
 
+import graph_visualizer.graphics.Window;
+
 public class Main
 {
     public static void main(String[] args)
     {
-        System.out.println("Hello World!");
+        new Window("Graph Visualizer");
     }
 }
