@@ -1,11 +1,10 @@
 package graph_visualizer.graphics;
 
 import javax.swing.*;
-import java.awt.*;
 
 class PanelButton extends JButton
 {
-    public PanelButton(String title, int x, int y)
+    PanelButton(String title, int x, int y)
     {
         super(title);
 

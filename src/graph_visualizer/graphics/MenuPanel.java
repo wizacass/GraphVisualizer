@@ -1,7 +1,6 @@
 package graph_visualizer.graphics;
 
 import javax.swing.*;
-import java.awt.*;
 
 class MenuPanel extends JPanel
 {
@@ -19,16 +18,16 @@ class MenuPanel extends JPanel
     {
         this.setBounds(
                 0,
-                constants.WindowHeight() - constants.PanelHeight(),
+                constants.WindowHeight() - constants.MenuPanelHeight(),
                 constants.WindowWidth(),
-                constants.PanelHeight()
+                constants.MenuPanelHeight()
         );
         this.setBackground(constants.MenuPanelColor());
     }
 
     private void AddButtons()
     {
-        int y = constants.PanelHeight() - constants.Margin() - constants.ButtonHeight();
+        int y = constants.MenuPanelHeight() - constants.Margin() - constants.ButtonHeight();
 
         var loadButton = new PanelButton("Load", GetButtonX(0), y);
         var generateButton = new PanelButton("Generate", GetButtonX(1), y);

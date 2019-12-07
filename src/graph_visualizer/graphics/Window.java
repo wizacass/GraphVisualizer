@@ -17,6 +17,8 @@ public class Window extends JFrame
         );
 
         this.add(new MenuPanel());
+        this.add(new GraphPanel());
+
         this.setResizable(false);
         setLayout(null);
         setVisible(true);

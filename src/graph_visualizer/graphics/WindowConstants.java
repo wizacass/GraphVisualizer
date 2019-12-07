@@ -10,6 +10,8 @@ class WindowConstants
     private final int mainScale = gridScale * scale;
 
     private final Color menuPanelColor = Color.gray;
+    private final Color graphPanelColor = Color.white;
+    private final Color graphDrawColor = Color.red;
 
     WindowConstants() {}
 
@@ -38,13 +40,33 @@ class WindowConstants
         return mainScale / 2;
     }
 
-    int PanelHeight()
+    int MenuPanelHeight()
     {
         return (windowsHeightUnits / 3) * mainScale;
+    }
+
+    int GraphPanelWidth()
+    {
+        return WindowWidth() - 2 * Margin();
+    }
+
+    int GraphPanelHeight()
+    {
+        return ((WindowHeight() / 3) * 2) - (2 * Margin());
     }
 
     Color MenuPanelColor()
     {
         return menuPanelColor;
+    }
+
+    Color GraphPanelBackgroundColor()
+    {
+        return graphPanelColor;
+    }
+
+    Color GraphPanelDrawColor()
+    {
+        return graphDrawColor;
     }
 }
