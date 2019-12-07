@@ -1,4 +1,4 @@
-package com.ramenpanda;
+package graph_visualizer;
 
 public class Main
 {
