@@ -9,9 +9,10 @@ class WindowConstants
     private final int scale = 2;
     private final int mainScale = gridScale * scale;
 
-    private final Color menuPanelColor = Color.gray;
+    private final Color menuPanelColor = Color.lightGray;
     private final Color graphPanelColor = Color.white;
     private final Color graphDrawColor = Color.black;
+    private final Color errorTextColor = Color.red;
 
     WindowConstants() {}
 
@@ -78,5 +79,10 @@ class WindowConstants
     Color GraphPanelDrawColor()
     {
         return graphDrawColor;
+    }
+
+    Color ErrorTextColor()
+    {
+        return errorTextColor;
     }
 }

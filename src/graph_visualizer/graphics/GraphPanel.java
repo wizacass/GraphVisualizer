@@ -6,6 +6,7 @@ import java.awt.*;
 class GraphPanel extends JPanel
 {
     private final WindowConstants constants = new WindowConstants();
+    private int nodeCount = 0;
 
     GraphPanel()
     {
@@ -24,11 +25,17 @@ class GraphPanel extends JPanel
         this.setForeground(constants.GraphPanelDrawColor());
     }
 
+    void setCount(int count)
+    {
+        nodeCount = count;
+        this.repaint();
+    }
+
     public void paint(Graphics g)
     {
         //DrawGrid(g);
         //DrawBase(g);
-        DrawNodes(g, 8);
+        DrawNodes(g);
     }
 
     private void DrawGrid(Graphics g)
@@ -38,8 +45,8 @@ class GraphPanel extends JPanel
         g.drawLine(0,0, boundary, boundary);
         g.drawLine(0, boundary, boundary, 0);
 
-        g.drawLine(boundary - 1, boundary - 1, boundary - 1, 0);
-        g.drawLine(boundary - 1, boundary - 1, 0, boundary - 1);
+//        g.drawLine(boundary - 1, boundary - 1, boundary - 1, 0);
+//        g.drawLine(boundary - 1, boundary - 1, 0, boundary - 1);
 
         for (int i = 0; i <= boundary; i += constants.Margin())
         {
@@ -53,22 +60,34 @@ class GraphPanel extends JPanel
         g.drawOval(constants.Margin(), constants.Margin(), constants.GraphCircumference(), constants.GraphCircumference());
     }
 
-    private void DrawNodes(Graphics g, int count)
+    private void DrawNodes(Graphics g)
     {
+        if (nodeCount == 0) return;
+
         int centerX = constants.GraphPanelWidth() / 2;
         int centerY = constants.GraphPanelHeight() / 2;
 
         int nodeRadius = constants.NodeCircumference() / 2;
         int graphRadius = constants.GraphCircumference() / 2;
 
-        double mainAngle = 360.0 / count;
+        if (nodeCount == 1)
+        {
+            g.drawOval(
+                    centerX - nodeRadius,
+                    centerY - nodeRadius,
+                    constants.NodeCircumference(),
+                    constants.NodeCircumference()
+            );
+            return;
+        }
 
-        for (int i = 0; i < count; i++)
+        double mainAngle = 360.0 / nodeCount;
+
+        for (int i = 0; i < nodeCount; i++)
         {
             double angle = Math.toRadians(mainAngle * i);
             int x = (int)((centerX + graphRadius * Math.cos(angle)) - nodeRadius);
             int y = (int)((centerY - graphRadius * Math.sin(angle)) - nodeRadius);
-            System.out.println("X: " + x + " Y: " + y);
             g.drawOval(x, y, constants.NodeCircumference(), constants. NodeCircumference());
         }
     }

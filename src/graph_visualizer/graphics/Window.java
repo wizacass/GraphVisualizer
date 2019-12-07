@@ -13,12 +13,13 @@ public class Window extends JFrame
     {
         super(title);
 
-        setSize(WindowSize(os));
+        var graphPanel = new GraphPanel();
 
-        this.add(new MenuPanel());
-        this.add(new GraphPanel());
+        this.add(new MenuPanel(graphPanel));
+        this.add(graphPanel);
 
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        this.setSize(WindowSize(os));
         this.setResizable(false);
         this.setLayout(null);
         this.centerWindow();
