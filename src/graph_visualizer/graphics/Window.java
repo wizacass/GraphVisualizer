@@ -1,6 +1,6 @@
 package graph_visualizer.graphics;
 
-import graph_visualizer.OS;
+import graph_visualizer.utils.OS;
 
 import javax.swing.*;
 import java.awt.*;

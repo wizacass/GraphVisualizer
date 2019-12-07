@@ -1,6 +1,7 @@
 package graph_visualizer;
 
 import graph_visualizer.graphics.Window;
+import graph_visualizer.utils.OS;
 
 public class Main
 {

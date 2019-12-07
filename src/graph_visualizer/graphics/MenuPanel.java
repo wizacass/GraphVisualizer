@@ -1,15 +1,19 @@
 package graph_visualizer.graphics;
 
+import graph_visualizer.utils.GraphFileManager;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 class MenuPanel extends JPanel
 {
     private final WindowConstants constants = new WindowConstants();
+    private final GraphFileManager fileManager = new GraphFileManager();
 
     private JTextField countInputField;
     private JLabel errorLabel;
     private GraphPanel graphPanel;
+    private JComboBox graphChooser;
 
     MenuPanel(GraphPanel panel)
     {
@@ -24,6 +28,7 @@ class MenuPanel extends JPanel
         AddButtons();
         AddCountInput();
         AddErrorLabel();
+        AddGraphLoader();
     }
 
     private void InitializeWindow()
@@ -39,12 +44,11 @@ class MenuPanel extends JPanel
 
     private void AddButtons()
     {
-        int y = constants.MenuPanelHeight() - constants.Margin() - constants.ButtonHeight();
+        var loadButton = new PanelButton("Load", GetButtonX(0), GetButtonY(3));
+        var generateButton = new PanelButton("Generate", GetButtonX(1), GetButtonY(3));
+        var clearButton = new PanelButton("Clear", GetButtonX(2), GetButtonY(3));
 
-        var loadButton = new PanelButton("Load", GetButtonX(0), y);
-        var generateButton = new PanelButton("Generate", GetButtonX(1), y);
-        var clearButton = new PanelButton("Clear", GetButtonX(2), y);
-
+        loadButton.addActionListener(this::loadButtonClicked);
         generateButton.addActionListener(this::generateButtonClicked);
         clearButton.addActionListener(this::clearButtonClicked);
 
@@ -55,10 +59,13 @@ class MenuPanel extends JPanel
 
     private void AddCountInput()
     {
-        int y = constants.MenuPanelHeight() - (constants.Margin() + constants.ButtonHeight()) * 2;
-
         countInputField = new JTextField("Node count");
-        countInputField.setBounds(GetButtonX(1), y, constants.ButtonWidth(), constants.ButtonHeight());
+        countInputField.setBounds(
+                GetButtonX(1),
+                GetButtonY(2),
+                constants.ButtonWidth(),
+                constants.ButtonHeight()
+        );
 
         this.add(countInputField);
     }
@@ -75,9 +82,45 @@ class MenuPanel extends JPanel
         this.add(errorLabel);
     }
 
+    private void AddGraphLoader()
+    {
+        var names = fileManager.FindGraphFiles();
+        graphChooser = new JComboBox(names);
+        graphChooser.setBounds(constants.Margin(),GetButtonY(2), constants.ButtonWidth(), constants.ButtonHeight());
+
+        this.add(graphChooser);
+    }
+
     private int GetButtonX(int k)
     {
         return constants.Margin() * (k + 1) + constants.ButtonWidth() * k;
+    }
+
+    private int GetButtonY(int k)
+    {
+        return (constants.Margin() + constants.ButtonHeight()) * k;
+    }
+
+    private void loadButtonClicked(ActionEvent e)
+    {
+        errorLabel.setText("");
+
+        var file = graphChooser.getItemAt(graphChooser.getSelectedIndex());
+        try
+        {
+            var text = fileManager.ReadFile(file.toString());
+            for (var line : text)
+            {
+                System.out.println(line);
+            }
+
+            graphPanel.setCount(text.size());
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+            errorLabel.setText("");
+        }
     }
 
     private void generateButtonClicked(ActionEvent e)
@@ -92,12 +135,14 @@ class MenuPanel extends JPanel
         }
         catch (Exception ex)
         {
+            System.out.println(ex.getMessage());
             errorLabel.setText("Wrong node count!");
         }
     }
 
     private void clearButtonClicked(ActionEvent e)
     {
+        errorLabel.setText("");
         graphPanel.setCount(0);
     }
 }
