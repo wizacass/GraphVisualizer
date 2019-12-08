@@ -1,5 +1,8 @@
 package graph_visualizer.graph;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public interface Graph<T>
 {
     public int NodeCount();
@@ -34,7 +37,21 @@ public interface Graph<T>
 
     public T FindElementByLabel(String label);
 
+    public T FindElementByIndex(int index);
+
+    public String NodeLabel(T element);
+
+    public String NodeLabel(int index);
+
+    public int IndexOf(String label);
+
+    public int IndexOf(T element);
+
     public int CalculateConnectedComponents();
+
+    public ArrayList<Integer> NeighborIndexes(String label);
+
+    public ArrayList<Integer> NeighborIndexes(T element);
 
     public Node<T>[] FindConnectionPoints();
 

@@ -217,9 +217,77 @@ public class VisualGraph<T> implements Graph<T>
     }
 
     @Override
+    public T FindElementByIndex(int index)
+    {
+        return (index < 0 || index > nodeCount) ? null : nodes.get(index).Data();
+    }
+
+    @Override
+    public String NodeLabel(T element)
+    {
+        var node = FindNode(element);
+        return node == null ? null : node.Label();
+    }
+
+    @Override
+    public String NodeLabel(int index)
+    {
+        return (index < 0 || index > nodeCount) ? null : nodes.get(index).Label();
+    }
+
+    @Override
+    public int IndexOf(String label)
+    {
+        var node = this.FindNode(label);
+        return IndexOf(node);
+    }
+
+    @Override
+    public int IndexOf(T element)
+    {
+        var node = this.FindNode(element);
+        return IndexOf(node);
+    }
+
+    private int IndexOf(Node<T> node)
+    {
+        return node == null ? -1 : nodes.indexOf(node);
+    }
+
+    @Override
     public int CalculateConnectedComponents()
     {
         return 0;
+    }
+
+    @Override
+    public ArrayList<Integer> NeighborIndexes(String label)
+    {
+        var node = this.FindNode(label);
+        return this.NeighborIndexes(node);
+    }
+
+    @Override
+    public ArrayList<Integer> NeighborIndexes(T element)
+    {
+        var node = this.FindNode(element);
+        return this.NeighborIndexes(node);
+    }
+
+    private ArrayList<Integer> NeighborIndexes(Node<T> node)
+    {
+        if (node == null)
+        {
+            return null;
+        }
+
+        var list = new ArrayList<Integer>();
+        var neighbors = node.Neighbors();
+        for (var neighbor: neighbors)
+        {
+            list.add(IndexOf(neighbor));
+        }
+        return list;
     }
 
     @Override
