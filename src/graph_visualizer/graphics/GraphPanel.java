@@ -8,7 +8,6 @@ import java.awt.*;
 class GraphPanel extends JPanel
 {
     private final WindowConstants constants = new WindowConstants();
-    //private int nodeCount = 0;
     private Graph graph;
 
     GraphPanel()
@@ -27,12 +26,6 @@ class GraphPanel extends JPanel
         this.setBackground(constants.GraphPanelBackgroundColor());
         this.setForeground(constants.GraphPanelDrawColor());
     }
-
-//    void setCount(int count)
-//    {
-//        nodeCount = count;
-//        this.repaint();
-//    }
 
     void setActiveGraph(Graph graph)
     {

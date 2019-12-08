@@ -1,6 +1,8 @@
 package graph_visualizer.graphics;
 
+import graph_visualizer.graph.GraphFactory;
 import graph_visualizer.graph.GraphParser;
+import graph_visualizer.graph.VisualGraph;
 import graph_visualizer.utils.GraphFileManager;
 
 import javax.swing.*;
@@ -114,8 +116,6 @@ class MenuPanel extends JPanel
             var graph = parser.CreateGraphFromIntegers(text);
             graph.PrintGraph();
             graphPanel.setActiveGraph(graph);
-
-            //graphPanel.setCount(text.size());
         }
         catch (Exception ex)
         {
@@ -129,10 +129,11 @@ class MenuPanel extends JPanel
         errorLabel.setText("");
         String text = countInputField.getText();
 
+        var factory = new GraphFactory();
         try
         {
             int count = Integer.parseUnsignedInt(text);
-            //graphPanel.setCount(count);
+            graphPanel.setActiveGraph(factory.CreateEmptyIntGraph(count));
         }
         catch (Exception ex)
         {
