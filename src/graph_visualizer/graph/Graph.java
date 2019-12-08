@@ -47,13 +47,13 @@ public interface Graph<T>
 
     public int IndexOf(T element);
 
-    public int CalculateConnectedComponents();
+    public int ConnectedComponents();
 
-    public ArrayList<Integer> NeighborIndexes(String label);
+    public List<Integer> NeighborIndexes(String label);
 
-    public ArrayList<Integer> NeighborIndexes(T element);
+    public List<Integer> NeighborIndexes(T element);
 
-    public Node<T>[] FindConnectionPoints();
+    public List<Integer> FindConnectionPoints();
 
     public void PrintGraph();
 }

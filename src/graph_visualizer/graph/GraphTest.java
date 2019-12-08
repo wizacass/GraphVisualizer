@@ -19,6 +19,7 @@ public class GraphTest
         graph.AddEdge(3, 4);
         graph.AddEdge(5, 6);
         graph.AddEdge("6", "2");
+        graph.RemoveNode(2);
 
         graph.PrintGraph();
         System.out.println("Test complete!");

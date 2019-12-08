@@ -5,8 +5,6 @@ import graph_visualizer.utils.Coordinates;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 class GraphPanel extends JPanel
 {
@@ -35,7 +33,8 @@ class GraphPanel extends JPanel
         this.graph = graph;
         this.repaint();
 
-        System.out.println("CC: " + graph.CalculateConnectedComponents());
+        System.out.println("CC: " + graph.ConnectedComponents());
+        var points = graph.FindConnectionPoints();
     }
 
     public void paint(Graphics g)

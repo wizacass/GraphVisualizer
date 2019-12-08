@@ -255,7 +255,7 @@ public class VisualGraph<T> implements Graph<T>
     }
 
     @Override
-    public int CalculateConnectedComponents()
+    public int ConnectedComponents()
     {
         int components = 0;
         var visited = new boolean[nodeCount];
@@ -286,20 +286,20 @@ public class VisualGraph<T> implements Graph<T>
     }
 
     @Override
-    public ArrayList<Integer> NeighborIndexes(String label)
+    public List<Integer> NeighborIndexes(String label)
     {
         var node = this.FindNode(label);
         return this.NeighborIndexes(node);
     }
 
     @Override
-    public ArrayList<Integer> NeighborIndexes(T element)
+    public List<Integer> NeighborIndexes(T element)
     {
         var node = this.FindNode(element);
         return this.NeighborIndexes(node);
     }
 
-    private ArrayList<Integer> NeighborIndexes(Node<T> node)
+    private List<Integer> NeighborIndexes(Node<T> node)
     {
         if (node == null)
         {
@@ -316,9 +316,28 @@ public class VisualGraph<T> implements Graph<T>
     }
 
     @Override
-    public Node<T>[] FindConnectionPoints()
+    public List<Integer> FindConnectionPoints()
     {
-        return null;
+        var points = new ArrayList<Integer>();
+
+        int comp = ConnectedComponents();
+        System.out.println("Main CC:" + comp);
+
+        for (int i = 0; i < nodeCount; i++)
+        {
+            var newGraph = this.Clone();
+            var element = newGraph.FindElementByIndex(i);
+            newGraph.RemoveNode(element);
+            int removedComp = newGraph.ConnectedComponents();
+            System.out.println("Removed " + this.NodeLabel(i) + ". New CC: " + removedComp);
+
+            if (removedComp > comp)
+            {
+                points.add(i);
+            }
+        }
+
+        return points;
     }
 
     @Override
