@@ -41,6 +41,16 @@ class Node<T>
         neighbors.remove(neighbor);
     }
 
+    List<T> Neighbors()
+    {
+        var list = new ArrayList<T>();
+        for (var neighbor: neighbors)
+        {
+            list.add(neighbor.data);
+        }
+        return list;
+    }
+
     Node<T> Clone()
     {
         var newNode = new Node<T>(this.data, this.label);
