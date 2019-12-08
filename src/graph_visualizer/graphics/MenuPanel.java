@@ -114,7 +114,7 @@ class MenuPanel extends JPanel
         {
             var text = fileManager.ReadFile(file.toString());
             var graph = parser.CreateGraphFromIntegers(text);
-            graph.PrintGraph();
+//            graph.PrintGraph();
             graphPanel.setActiveGraph(graph);
         }
         catch (Exception ex)
