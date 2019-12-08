@@ -1,21 +1,69 @@
 package graph_visualizer.graph;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class Node<T>
 {
     private String label;
-    private int id;
     private T data;
-    private Node<T>[] neighbors;
+    private List<Node<T>> neighbors;
 
-    public Node(T data, String label, int id)
+    Node(T data, String label)
     {
         this.data = data;
         this.label = label;
-        this.id = id;
+        this.neighbors = new ArrayList<>();
+    }
+
+    Node(T data)
+    {
+        this(data, data.toString());
+    }
+
+    String Label()
+    {
+        return label;
+    }
+
+    T Data() { return data; }
+
+    void AddNeighbor(Node<T> neighbor)
+    {
+        if (!neighbors.contains(neighbor))
+        {
+            neighbors.add(neighbor);
+        }
+    }
+
+    void RemoveNeighbor(Node<T> neighbor)
+    {
+        neighbors.remove(neighbor);
+    }
+
+    Node<T> Clone()
+    {
+        var newNode = new Node<T>(this.data, this.label);
+        for (var neighbor: neighbors)
+        {
+            newNode.AddNeighbor(new Node<T>(neighbor.data, neighbor.label));
+        }
+        return newNode;
     }
 
     public String toString()
     {
-        return label + "+\n" + data.toString();
+        var sb = new StringBuilder();
+        sb.append(label);
+        if(neighbors.size() > 0)
+        {
+            sb.append(": ");
+            for (var neighbor: neighbors)
+            {
+                sb.append(neighbor.label);
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
     }
 }

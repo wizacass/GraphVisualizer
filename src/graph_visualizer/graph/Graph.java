@@ -2,31 +2,39 @@ package graph_visualizer.graph;
 
 public interface Graph<T>
 {
-    public int Size();
+    public int NodeCount();
+
+    public int EdgesCount();
 
     public boolean IsEmpty();
 
     public void Clear();
 
-    public void AddEdge(Node<T> n1, Node<T> n2);
+    public void AddEdge(T e1, T e2);
 
-    public void AddNode(Node<T> node);
+    public void AddEdge(String label1, String label2);
 
-    public void RemoveEdge(Node<T> n1, Node<T> n2);
+    public void AddNode(T element);
 
-    public void RemoveNode(Node<T> node);
+    public void AddNode(T element, String label);
 
-    public void RemoveNodeById(int id);
+    public void RemoveEdge(T e1, T e2);
 
-    public void RemoveNodeByLabel(String label);
+    public void RemoveEdge(String label1, String label2);
 
-    public Node<T> FindNode(Node<T> node);
+    public void RemoveNode(T element);
 
-    public Node<T> FindNodeById(int id);
+    public void RemoveNode(String label);
 
-    public Node<T> FindNodeByLabel(String label);
+    public boolean Contains(T element);
 
-    public int[] CalculateConnectedComponents();
+    public boolean Contains(String label);
+
+    public Graph<T> Clone();
+
+    public T FindElementByLabel(String label);
+
+    public int CalculateConnectedComponents();
 
     public Node<T>[] FindConnectionPoints();
 }
