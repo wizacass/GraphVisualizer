@@ -34,6 +34,10 @@ public interface Graph<T>
 
     public T FindElementByLabel(String label);
 
+    public int FindNodeIndex(String label);
+
+    public int FindNodeIndex(T element);
+
     public int CalculateConnectedComponents();
 
     public Node<T>[] FindConnectionPoints();

@@ -217,6 +217,18 @@ public class VisualGraph<T> implements Graph<T>
     }
 
     @Override
+    public int FindNodeIndex(String label)
+    {
+        return 0;
+    }
+
+    @Override
+    public int FindNodeIndex(T element)
+    {
+        return 0;
+    }
+
+    @Override
     public int CalculateConnectedComponents()
     {
         return 0;

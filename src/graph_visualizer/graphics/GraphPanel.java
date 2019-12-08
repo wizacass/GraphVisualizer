@@ -1,6 +1,7 @@
 package graph_visualizer.graphics;
 
 import graph_visualizer.graph.Graph;
+import graph_visualizer.utils.Coordinates;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,9 +36,9 @@ class GraphPanel extends JPanel
 
     public void paint(Graphics g)
     {
-        //DrawGrid(g);
-        //DrawBase(g);
-        DrawNodes(g);
+//        DrawGrid(g);
+//        DrawBase(g);
+        DrawGraph(g);
     }
 
     private void DrawGrid(Graphics g)
@@ -62,38 +63,67 @@ class GraphPanel extends JPanel
         g.drawOval(constants.Margin(), constants.Margin(), constants.GraphCircumference(), constants.GraphCircumference());
     }
 
-    private void DrawNodes(Graphics g)
+    private void DrawGraph(Graphics g)
     {
-        if (graph == null) return;
-
-        int nodeCount = graph.NodeCount();
-        if (nodeCount == 0) return;
-
-        int centerX = constants.GraphPanelWidth() / 2;
-        int centerY = constants.GraphPanelHeight() / 2;
+        if (graph == null || graph.IsEmpty()) return;
 
         int nodeRadius = constants.NodeCircumference() / 2;
         int graphRadius = constants.GraphCircumference() / 2;
+        var centerCoordinates = new Coordinates(
+                constants.GraphPanelWidth() / 2,
+                constants.GraphPanelHeight() / 2
+        );
 
+        DrawNodes(g, nodeRadius, graphRadius, centerCoordinates);
+        DrawEdges(g);
+        DrawLabels(g);
+    }
+
+    private void DrawNodes(Graphics g, int nodeRadius, int graphRadius, Coordinates centerCoordinates)
+    {
+        var nodeCount = graph.NodeCount();
         if (nodeCount == 1)
         {
             g.drawOval(
-                    centerX - nodeRadius,
-                    centerY - nodeRadius,
+                    centerCoordinates.x - nodeRadius,
+                    centerCoordinates.y - nodeRadius,
                     constants.NodeCircumference(),
                     constants.NodeCircumference()
             );
             return;
         }
 
-        double mainAngle = 360.0 / nodeCount;
-
         for (int i = 0; i < nodeCount; i++)
         {
-            double angle = Math.toRadians(mainAngle * i);
-            int x = (int)((centerX + graphRadius * Math.cos(angle)) - nodeRadius);
-            int y = (int)((centerY - graphRadius * Math.sin(angle)) - nodeRadius);
-            g.drawOval(x, y, constants.NodeCircumference(), constants. NodeCircumference());
+            var c = GetNodeCoordinates(i + 1, graphRadius, centerCoordinates);
+            g.drawOval(
+                    c.x - nodeRadius,
+                    c.y - nodeRadius,
+                    constants.NodeCircumference(),
+                    constants. NodeCircumference()
+            );
         }
+    }
+
+    private Coordinates GetNodeCoordinates(int k, int graphRadius, Coordinates centerCoordinates)
+    {
+        var coordinates = new Coordinates();
+
+        double mainAngle = 360.0 / graph.NodeCount();
+        double angle = Math.toRadians(mainAngle * (k - 1));
+        coordinates.x = (int)((centerCoordinates.x + graphRadius * Math.cos(angle)));
+        coordinates.y = (int)((centerCoordinates.y - graphRadius * Math.sin(angle)));
+
+        return coordinates;
+    }
+
+    private void DrawEdges(Graphics g)
+    {
+
+    }
+
+    private void DrawLabels(Graphics g)
+    {
+
     }
 }
