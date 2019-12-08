@@ -1,12 +1,15 @@
 package graph_visualizer.graphics;
 
+import graph_visualizer.graph.Graph;
+
 import javax.swing.*;
 import java.awt.*;
 
 class GraphPanel extends JPanel
 {
     private final WindowConstants constants = new WindowConstants();
-    private int nodeCount = 0;
+    //private int nodeCount = 0;
+    private Graph graph;
 
     GraphPanel()
     {
@@ -25,9 +28,15 @@ class GraphPanel extends JPanel
         this.setForeground(constants.GraphPanelDrawColor());
     }
 
-    void setCount(int count)
+//    void setCount(int count)
+//    {
+//        nodeCount = count;
+//        this.repaint();
+//    }
+
+    void setActiveGraph(Graph graph)
     {
-        nodeCount = count;
+        this.graph = graph;
         this.repaint();
     }
 
@@ -62,6 +71,9 @@ class GraphPanel extends JPanel
 
     private void DrawNodes(Graphics g)
     {
+        if (graph == null) return;
+
+        int nodeCount = graph.NodeCount();
         if (nodeCount == 0) return;
 
         int centerX = constants.GraphPanelWidth() / 2;

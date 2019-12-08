@@ -37,4 +37,6 @@ public interface Graph<T>
     public int CalculateConnectedComponents();
 
     public Node<T>[] FindConnectionPoints();
+
+    public void PrintGraph();
 }
