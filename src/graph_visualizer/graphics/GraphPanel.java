@@ -5,8 +5,6 @@ import graph_visualizer.utils.Coordinates;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 class GraphPanel extends JPanel
 {
@@ -30,7 +28,7 @@ class GraphPanel extends JPanel
         this.setForeground(constants.GraphPanelDrawColor());
     }
 
-    void setActiveGraph(Graph graph)
+    void setActiveGraph(Graph<Integer> graph)
     {
         this.graph = graph;
         this.repaint();
@@ -84,6 +82,8 @@ class GraphPanel extends JPanel
     private void DrawNodes(Graphics g, int nodeRadius, int graphRadius, Coordinates centerCoordinates)
     {
         var nodeCount = graph.NodeCount();
+        var connectionPoints = graph.FindConnectionPoints();
+        int connectionRadius = constants.ConnectedNodeCircumference() / 2;
         if (nodeCount == 1)
         {
             g.drawOval(
@@ -104,6 +104,16 @@ class GraphPanel extends JPanel
                     constants.NodeCircumference(),
                     constants.NodeCircumference()
             );
+
+            if(connectionPoints.contains(i))
+            {
+                g.drawOval(
+                        c.x - connectionRadius,
+                        c.y - connectionRadius,
+                        constants.ConnectedNodeCircumference(),
+                        constants.ConnectedNodeCircumference()
+                );
+            }
         }
     }
 

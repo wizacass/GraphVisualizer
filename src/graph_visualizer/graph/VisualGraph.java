@@ -255,26 +255,51 @@ public class VisualGraph<T> implements Graph<T>
     }
 
     @Override
-    public int CalculateConnectedComponents()
+    public int ConnectedComponents()
     {
-        return 0;
+        int components = 0;
+        var visited = new boolean[nodeCount];
+        for (int i = 0; i < nodeCount; ++i)
+        {
+            if (visited[i]) continue;
+
+            DepthFirstSearch(i, visited);
+            components++;
+        }
+
+        return components;
+    }
+
+    private void DepthFirstSearch(int current, boolean[] visited)
+    {
+        visited[current] = true;
+        var currentNode = nodes.get(current);
+        var currentNeighbors = currentNode.Neighbors();
+        for (var neighbor : currentNeighbors)
+        {
+            int currentIndex = IndexOf(neighbor);
+            if (!visited[currentIndex])
+            {
+                DepthFirstSearch(currentIndex, visited);
+            }
+        }
     }
 
     @Override
-    public ArrayList<Integer> NeighborIndexes(String label)
+    public List<Integer> NeighborIndexes(String label)
     {
         var node = this.FindNode(label);
         return this.NeighborIndexes(node);
     }
 
     @Override
-    public ArrayList<Integer> NeighborIndexes(T element)
+    public List<Integer> NeighborIndexes(T element)
     {
         var node = this.FindNode(element);
         return this.NeighborIndexes(node);
     }
 
-    private ArrayList<Integer> NeighborIndexes(Node<T> node)
+    private List<Integer> NeighborIndexes(Node<T> node)
     {
         if (node == null)
         {
@@ -291,9 +316,23 @@ public class VisualGraph<T> implements Graph<T>
     }
 
     @Override
-    public Node<T>[] FindConnectionPoints()
+    public List<Integer> FindConnectionPoints()
     {
-        return null;
+        var points = new ArrayList<Integer>();
+        int comp = ConnectedComponents();
+        for (int i = 0; i < nodeCount; i++)
+        {
+            var newGraph = this.Clone();
+            var element = newGraph.FindElementByIndex(i);
+            newGraph.RemoveNode(element);
+            int removedComp = newGraph.ConnectedComponents();
+
+            if (removedComp > comp)
+            {
+                points.add(i);
+            }
+        }
+        return points;
     }
 
     @Override
