@@ -145,6 +145,6 @@ class MenuPanel extends JPanel
     private void clearButtonClicked(ActionEvent e)
     {
         errorLabel.setText("");
-        graphPanel.setActiveGraph(null);
+        graphPanel.setActiveGraph(new VisualGraph<>());
     }
 }

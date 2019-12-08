@@ -30,10 +30,12 @@ class GraphPanel extends JPanel
         this.setForeground(constants.GraphPanelDrawColor());
     }
 
-    void setActiveGraph(Graph graph)
+    void setActiveGraph(Graph<Integer> graph)
     {
         this.graph = graph;
         this.repaint();
+
+        System.out.println("CC: " + graph.CalculateConnectedComponents());
     }
 
     public void paint(Graphics g)
