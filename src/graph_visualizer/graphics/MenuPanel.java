@@ -1,5 +1,8 @@
 package graph_visualizer.graphics;
 
+import graph_visualizer.graph.GraphFactory;
+import graph_visualizer.graph.GraphParser;
+import graph_visualizer.graph.VisualGraph;
 import graph_visualizer.utils.GraphFileManager;
 
 import javax.swing.*;
@@ -105,16 +108,14 @@ class MenuPanel extends JPanel
     {
         errorLabel.setText("");
 
+        var parser = new GraphParser();
         var file = graphChooser.getItemAt(graphChooser.getSelectedIndex());
         try
         {
             var text = fileManager.ReadFile(file.toString());
-            for (var line : text)
-            {
-                System.out.println(line);
-            }
-
-            graphPanel.setCount(text.size());
+            var graph = parser.CreateGraphFromIntegers(text);
+            graph.PrintGraph();
+            graphPanel.setActiveGraph(graph);
         }
         catch (Exception ex)
         {
@@ -128,10 +129,11 @@ class MenuPanel extends JPanel
         errorLabel.setText("");
         String text = countInputField.getText();
 
+        var factory = new GraphFactory();
         try
         {
             int count = Integer.parseUnsignedInt(text);
-            graphPanel.setCount(count);
+            graphPanel.setActiveGraph(factory.CreateEmptyIntGraph(count));
         }
         catch (Exception ex)
         {
@@ -143,6 +145,6 @@ class MenuPanel extends JPanel
     private void clearButtonClicked(ActionEvent e)
     {
         errorLabel.setText("");
-        graphPanel.setCount(0);
+        graphPanel.setActiveGraph(null);
     }
 }

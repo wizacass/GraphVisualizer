@@ -9,7 +9,7 @@ public class VisualGraph<T> implements Graph<T>
     private int nodeCount;
     private int edgesCount;
 
-    VisualGraph()
+    public VisualGraph()
     {
         nodes = new ArrayList<>();
         nodeCount = 0;
@@ -228,7 +228,8 @@ public class VisualGraph<T> implements Graph<T>
         return null;
     }
 
-    void PrintGraph()
+    @Override
+    public void PrintGraph()
     {
         for(var node: nodes)
         {
