@@ -66,6 +66,11 @@ class WindowConstants
         return mainScale / 2;
     }
 
+    int ConnectedNodeCircumference()
+    {
+        return NodeCircumference() + (Margin() / 4);
+    }
+
     Color MenuPanelColor()
     {
         return menuPanelColor;

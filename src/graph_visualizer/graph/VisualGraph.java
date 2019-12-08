@@ -319,24 +319,19 @@ public class VisualGraph<T> implements Graph<T>
     public List<Integer> FindConnectionPoints()
     {
         var points = new ArrayList<Integer>();
-
         int comp = ConnectedComponents();
-        System.out.println("Main CC:" + comp);
-
         for (int i = 0; i < nodeCount; i++)
         {
             var newGraph = this.Clone();
             var element = newGraph.FindElementByIndex(i);
             newGraph.RemoveNode(element);
             int removedComp = newGraph.ConnectedComponents();
-            System.out.println("Removed " + this.NodeLabel(i) + ". New CC: " + removedComp);
 
             if (removedComp > comp)
             {
                 points.add(i);
             }
         }
-
         return points;
     }
 

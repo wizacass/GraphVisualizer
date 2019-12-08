@@ -32,9 +32,6 @@ class GraphPanel extends JPanel
     {
         this.graph = graph;
         this.repaint();
-
-        System.out.println("CC: " + graph.ConnectedComponents());
-        var points = graph.FindConnectionPoints();
     }
 
     public void paint(Graphics g)
@@ -85,6 +82,8 @@ class GraphPanel extends JPanel
     private void DrawNodes(Graphics g, int nodeRadius, int graphRadius, Coordinates centerCoordinates)
     {
         var nodeCount = graph.NodeCount();
+        var connectionPoints = graph.FindConnectionPoints();
+        int connectionRadius = constants.ConnectedNodeCircumference() / 2;
         if (nodeCount == 1)
         {
             g.drawOval(
@@ -105,6 +104,16 @@ class GraphPanel extends JPanel
                     constants.NodeCircumference(),
                     constants.NodeCircumference()
             );
+
+            if(connectionPoints.contains(i))
+            {
+                g.drawOval(
+                        c.x - connectionRadius,
+                        c.y - connectionRadius,
+                        constants.ConnectedNodeCircumference(),
+                        constants.ConnectedNodeCircumference()
+                );
+            }
         }
     }
 

@@ -56,10 +56,10 @@ class Node<T>
 
     Node<T> Clone()
     {
-        var newNode = new Node<T>(this.data, this.label);
+        var newNode = new Node<>(this.data, this.label);
         for (var neighbor : neighbors)
         {
-            newNode.AddNeighbor(new Node<T>(neighbor.data, neighbor.label));
+            newNode.AddNeighbor(new Node<>(neighbor.data, neighbor.label));
         }
         return newNode;
     }
