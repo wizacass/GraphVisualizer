@@ -32,8 +32,12 @@ public class GraphFactory
     public Graph<Integer> CreateRandomIntGraph(int count, int seed)
     {
         var rnd = new Random(seed);
-        var graph = new VisualGraph<Integer>();
+        return CreateRandomIntGraph(count, rnd);
+    }
 
+    public Graph<Integer> CreateRandomIntGraph(int count, Random rnd)
+    {
+        var graph = new VisualGraph<Integer>();
         for (int i = 1; i < count + 1; i++)
         {
             graph.AddNode(i);
