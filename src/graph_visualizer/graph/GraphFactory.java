@@ -36,6 +36,7 @@ public class GraphFactory
 
         for (int i = 1; i < count + 1; i++)
         {
+            graph.AddNode(i);
             int rndCount = rnd.nextInt((int) (count * 0.5)) + 1;
             for (int j = 1; j < rndCount; j++)
             {
