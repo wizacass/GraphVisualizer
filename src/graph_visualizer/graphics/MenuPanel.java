@@ -133,7 +133,7 @@ class MenuPanel extends JPanel
         try
         {
             int count = Integer.parseUnsignedInt(text);
-            graphPanel.setActiveGraph(factory.CreateEmptyIntGraph(count));
+            graphPanel.setActiveGraph(factory.CreateRandomIntGraph(count, 2020));
         }
         catch (Exception ex)
         {
