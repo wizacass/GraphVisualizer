@@ -7,7 +7,7 @@ import java.util.Random;
 class Benchmark
 {
     private final Timekeeper timekeeper;
-    private final int[] counts = {100, 500, 1000, 2000};
+    private final int[] counts = {100, 200, 400, 800, 1600, 3200};
 
     private Random rnd;
     private GraphFactory factory;
@@ -47,13 +47,13 @@ class Benchmark
                 timekeeper.start();
 
                 var graph = factory.CreateRandomIntGraph(count, rnd);
-                timekeeper.finish("GraphCreate");
+                timekeeper.finish("  Create");
 
                 for (int i = 0; i < rnd.nextInt(count / 2); i++)
                 {
                     graph.RemoveNode(rnd.nextInt(graph.NodeCount()));
                 }
-                timekeeper.finish("GraphRemove");
+                timekeeper.finish("  Remove");
                 timekeeper.seriesFinish();
             }
             timekeeper.logResult("");

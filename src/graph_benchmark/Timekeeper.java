@@ -3,7 +3,7 @@ package graph_benchmark;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Semaphore;
 
-public class Timekeeper
+class Timekeeper
 {
     private final long startTimeTot;
     private final int maxBenchmarks = 30;
@@ -20,9 +20,9 @@ public class Timekeeper
     private int benchmarkCount;
     private double[][] times;
     private String benchmarkString;
-    private String header = "  Count(*k) ";
+    private String header = "   Count(*k) ";
 
-    public Timekeeper(int[] counts)
+    Timekeeper(int[] counts)
     {
         this(counts, null, null);
     }
@@ -37,7 +37,7 @@ public class Timekeeper
         startTimeTot = System.nanoTime();
     }
 
-    public void start() throws InterruptedException
+    void start() throws InterruptedException
     {
         currentBenchmark = 0;
         if (currentCount >= countsNumber)
@@ -55,7 +55,7 @@ public class Timekeeper
         startTime = System.nanoTime();
     }
 
-    public void startAfterPause()
+    void startAfterPause()
     {
         Runtime.getRuntime().gc();
         Runtime.getRuntime().gc();
@@ -63,7 +63,7 @@ public class Timekeeper
         startTime = System.nanoTime();
     }
 
-    public void finish(String name) throws InterruptedException
+    void finish(String name) throws InterruptedException
     {
         double executionTime = (System.nanoTime() - startTime) / 1e9;
         sumTime += executionTime;
@@ -87,7 +87,7 @@ public class Timekeeper
         startTime = System.nanoTime();
     }
 
-    public void seriesFinish() throws InterruptedException
+    void seriesFinish() throws InterruptedException
     {
         if (currentCount == 0)
         {
@@ -126,7 +126,7 @@ public class Timekeeper
         logResult(sb.toString());
     }
 
-    public void logResult(String result) throws InterruptedException
+    void logResult(String result) throws InterruptedException
     {
         if (resultsLogger != null && semaphore != null)
         {
@@ -135,7 +135,7 @@ public class Timekeeper
         }
         else
         {
-            System.out.println(result);
+            System.out.print(result);
         }
     }
 }
