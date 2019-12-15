@@ -10,13 +10,13 @@ import java.util.List;
 
 public class GraphFileManager
 {
-    private final String mainDir = "graphs";
+    private final String mainDir = "data";
 
     public GraphFileManager() {}
 
     public Object[] FindGraphFiles()
     {
-        var path = Paths.get(mainDir);
+        var path = Paths.get(mainDir + "/graphs");
         var files = new File(path.toString()).listFiles((dir, name) -> name.endsWith(".txt"));
 
         if (files == null)
@@ -29,16 +29,20 @@ public class GraphFileManager
         {
             if (file.isFile())
             {
-                fileNames.add(file.getName());
+                String name = file.getName();
+                fileNames.add(name.substring(0, name.length() - 4));
             }
         }
-
         return fileNames.toArray();
     }
 
-    public List<String> ReadFile(String filename) throws IOException
+    public List<String> ReadFile(String filename, String subdirectory) throws IOException
     {
-        var path = Paths.get(mainDir + "/" + filename);
+        String pathString = subdirectory == null ?
+                mainDir + "/" + filename + ".txt":
+                mainDir + "/" + subdirectory + "/" + filename + ".txt";
+
+        var path = Paths.get(pathString);
         return Files.readAllLines(path, StandardCharsets.UTF_8);
     }
 }
