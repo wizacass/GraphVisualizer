@@ -12,7 +12,7 @@ class Node<T>
     Node(T data, String label)
     {
         this.data = data;
-        this.label = label;
+        this.label = label == null ? data.toString() : label;
         this.neighbors = new ArrayList<>();
     }
 

@@ -3,20 +3,24 @@ package graph_visualizer.graphics;
 import graph_visualizer.graph.GraphFactory;
 import graph_visualizer.graph.GraphParser;
 import graph_visualizer.graph.VisualGraph;
+import graph_visualizer.utils.FileParser;
 import graph_visualizer.utils.GraphFileManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.Map;
 
 class MenuPanel extends JPanel
 {
     private final WindowConstants constants = new WindowConstants();
     private final GraphFileManager fileManager = new GraphFileManager();
+    private final FileParser fileParser = new FileParser();
 
     private JTextField countInputField;
     private JLabel errorLabel;
     private GraphPanel graphPanel;
     private JComboBox graphChooser;
+    private Map<Integer, String> labels;
 
     MenuPanel(GraphPanel panel)
     {
@@ -24,6 +28,7 @@ class MenuPanel extends JPanel
         this.InitializeComponents();
         this.graphPanel = panel;
         this.setLayout(null);
+        this.labels = fileParser.CreateLabelDictionary();
     }
 
     private void InitializeComponents()
@@ -112,8 +117,8 @@ class MenuPanel extends JPanel
         var file = graphChooser.getItemAt(graphChooser.getSelectedIndex());
         try
         {
-            var text = fileManager.ReadFile(file.toString());
-            var graph = parser.CreateGraphFromIntegers(text);
+            var text = fileManager.ReadFile(file.toString(), "graphs");
+            var graph = parser.CreateGraphFromIntegers(text, labels);
 //            graph.PrintGraph();
             graphPanel.setActiveGraph(graph);
         }
