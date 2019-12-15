@@ -18,7 +18,7 @@ public class FileParser
     {
         try
         {
-            var data = fileManager.ReadFile("districts.txt", "dictionaries");
+            var data = fileManager.ReadFile("districts", "dictionaries");
             return ParseText(data);
         }
         catch (Exception ex)

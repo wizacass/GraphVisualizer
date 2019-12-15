@@ -29,7 +29,8 @@ public class GraphFileManager
         {
             if (file.isFile())
             {
-                fileNames.add(file.getName());
+                String name = file.getName();
+                fileNames.add(name.substring(0, name.length() - 4));
             }
         }
         return fileNames.toArray();
@@ -38,8 +39,8 @@ public class GraphFileManager
     public List<String> ReadFile(String filename, String subdirectory) throws IOException
     {
         String pathString = subdirectory == null ?
-                mainDir + "/" + filename :
-                mainDir + "/" + subdirectory + "/" + filename;
+                mainDir + "/" + filename + ".txt":
+                mainDir + "/" + subdirectory + "/" + filename + ".txt";
 
         var path = Paths.get(pathString);
         return Files.readAllLines(path, StandardCharsets.UTF_8);

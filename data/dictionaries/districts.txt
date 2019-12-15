@@ -24,3 +24,5 @@
 24 Palemonas
 25 Milikoniai
 26 Kalnieciai
+27 Noreikiskes
+28 Jiesia
