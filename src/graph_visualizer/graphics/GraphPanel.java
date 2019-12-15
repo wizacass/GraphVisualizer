@@ -163,7 +163,7 @@ class GraphPanel extends JPanel
         {
             var c = GetNodeCoordinates(i, graphRadius, centerCoordinates);
             var label = graph.NodeLabel(i);
-            g.drawString(label, c.x, c.y);
+            g.drawString(label, c.x - nodeRadius, c.y - nodeRadius);
         }
     }
 }
