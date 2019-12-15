@@ -61,7 +61,7 @@ class MenuPanel extends JPanel
         clearButton.addActionListener(this::clearButtonClicked);
 
         this.add(loadButton);
-        this.add(generateButton);
+        //this.add(generateButton);
         this.add(clearButton);
     }
 
@@ -75,7 +75,7 @@ class MenuPanel extends JPanel
                 constants.ButtonHeight()
         );
 
-        this.add(countInputField);
+        //this.add(countInputField);
     }
 
     private void AddErrorLabel()
