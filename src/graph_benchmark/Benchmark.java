@@ -7,7 +7,7 @@ import java.util.Random;
 class Benchmark
 {
     private final Timekeeper timekeeper;
-    private final int[] counts = {100, 200, 400, 800, 1600, 3200};
+    private final int[] counts = {100, 200, 400, 800, 1600};
 
     private Random rnd;
     private GraphFactory factory;
