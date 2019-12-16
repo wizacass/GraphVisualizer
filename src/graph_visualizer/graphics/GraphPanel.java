@@ -1,6 +1,7 @@
 package graph_visualizer.graphics;
 
 import graph_visualizer.graph.Graph;
+import graph_visualizer.graph.VisualGraph;
 import graph_visualizer.utils.Coordinates;
 
 import javax.swing.*;
@@ -9,7 +10,7 @@ import java.awt.*;
 class GraphPanel extends JPanel
 {
     private final WindowConstants constants = new WindowConstants();
-    private Graph<Integer> graph;
+    private VisualGraph<Integer> graph;
 
     GraphPanel()
     {
@@ -28,10 +29,15 @@ class GraphPanel extends JPanel
         this.setForeground(constants.GraphPanelDrawColor());
     }
 
-    void setActiveGraph(Graph<Integer> graph)
+    void setActiveGraph(VisualGraph<Integer> graph)
     {
         this.graph = graph;
         this.repaint();
+    }
+
+    VisualGraph<Integer> getActiveGraph()
+    {
+        return this.graph;
     }
 
     public void paint(Graphics g)
