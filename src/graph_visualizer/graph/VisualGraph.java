@@ -1,9 +1,10 @@
 package graph_visualizer.graph;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class VisualGraph<T> implements Graph<T>
+public class VisualGraph<T> implements Graph<T>, Iterable<T>
 {
     private List<Node<T>> nodes;
     private int nodeCount;
@@ -354,5 +355,11 @@ public class VisualGraph<T> implements Graph<T>
             sb.append(node.toString());
         }
         return sb.toString();
+    }
+
+    @Override
+    public Iterator<T> iterator()
+    {
+        return new GraphIterator<T>(nodes);
     }
 }

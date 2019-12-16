@@ -23,5 +23,10 @@ public class GraphTest
 
         graph.PrintGraph();
         System.out.println("Test complete!");
+
+        for (var node: graph)
+        {
+            System.out.println(node);
+        }
     }
 }
