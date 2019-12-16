@@ -357,6 +357,16 @@ public class VisualGraph<T> implements Graph<T>, Iterable<T>
         return sb.toString();
     }
 
+    public List<String> GetLabels()
+    {
+        var labels = new ArrayList<String>();
+        for(var node: nodes)
+        {
+            labels.add(node.Label());
+        }
+        return labels;
+    }
+
     @Override
     public Iterator<T> iterator()
     {

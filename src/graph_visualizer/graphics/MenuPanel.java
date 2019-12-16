@@ -20,6 +20,8 @@ class MenuPanel extends JPanel
     private JLabel errorLabel;
     private GraphPanel graphPanel;
     private JComboBox graphChooser;
+    private JComboBox removeNodesList;
+    private JComboBox addNodesList;
     private Map<Integer, String> labels;
 
     MenuPanel(GraphPanel panel)
@@ -55,14 +57,20 @@ class MenuPanel extends JPanel
         var loadButton = new PanelButton("Load", GetButtonX(0), GetButtonY(3));
         var generateButton = new PanelButton("Generate", GetButtonX(1), GetButtonY(3));
         var clearButton = new PanelButton("Clear", GetButtonX(2), GetButtonY(3));
+        var removeButton = new PanelButton("Remove Edge", GetButtonX(2), GetButtonY(2));
+        var addEdgeButton = new PanelButton("Add Edge", GetButtonX(1), GetButtonY(2));
 
         loadButton.addActionListener(this::loadButtonClicked);
         generateButton.addActionListener(this::generateButtonClicked);
         clearButton.addActionListener(this::clearButtonClicked);
+        removeButton.addActionListener(this::removeButtonClicked);
+        addEdgeButton.addActionListener(this::addEdgeButtonClicked);
 
         this.add(loadButton);
         //this.add(generateButton);
         this.add(clearButton);
+        this.add(removeButton);
+        this.add(addEdgeButton);
     }
 
     private void AddCountInput()
@@ -118,8 +126,9 @@ class MenuPanel extends JPanel
         try
         {
             var text = fileManager.ReadFile(file.toString(), "graphs");
-            var graph = parser.CreateGraphFromIntegers(text, labels);
-//            graph.PrintGraph();
+            var graph = (VisualGraph<Integer>)parser.CreateGraphFromIntegers(text, labels);
+            updateNodesList(graph);
+
             graphPanel.setActiveGraph(graph);
         }
         catch (Exception ex)
@@ -127,6 +136,19 @@ class MenuPanel extends JPanel
             System.out.println(ex.getMessage());
             errorLabel.setText("");
         }
+    }
+
+    private void updateNodesList(VisualGraph<Integer> graph)
+    {
+        this.removeNodesList = new JComboBox(graph.GetLabels().toArray());
+        this.addNodesList = new JComboBox(graph.GetLabels().toArray());
+
+        this.removeNodesList.setBounds(GetButtonX(2), GetButtonY(1), constants.ButtonWidth(), constants.ButtonHeight());
+        this.addNodesList.setBounds(GetButtonX(1), GetButtonY(1), constants.ButtonWidth(), constants.ButtonHeight());
+
+        this.add(removeNodesList);
+        this.add(addNodesList);
+        this.updateUI();
     }
 
     private void generateButtonClicked(ActionEvent e)
@@ -138,7 +160,8 @@ class MenuPanel extends JPanel
         try
         {
             int count = Integer.parseUnsignedInt(text);
-            graphPanel.setActiveGraph(factory.CreateRandomIntGraph(count, 2020));
+            var graph = factory.CreateRandomIntGraph(count, 2020);
+            graphPanel.setActiveGraph((VisualGraph<Integer>) graph);
         }
         catch (Exception ex)
         {
@@ -151,5 +174,27 @@ class MenuPanel extends JPanel
     {
         errorLabel.setText("");
         graphPanel.setActiveGraph(new VisualGraph<>());
+        this.remove(removeNodesList);
+        this.remove(addNodesList);
+        this.updateUI();
+    }
+
+    private void removeButtonClicked(ActionEvent e)
+    {
+        var graph = graphPanel.getActiveGraph();
+        var label1 = removeNodesList.getItemAt(removeNodesList.getSelectedIndex()).toString();
+        var label2 = addNodesList.getItemAt(addNodesList.getSelectedIndex()).toString();
+        graph.RemoveEdge(label1, label2);
+        graphPanel.setActiveGraph(graph);
+    }
+
+    private void addEdgeButtonClicked(ActionEvent e)
+    {
+        var graph = graphPanel.getActiveGraph();
+        var label1 = removeNodesList.getSelectedItem().toString();
+        var label2 = addNodesList.getSelectedItem().toString();
+        System.out.println(label1 + " > " + label2);
+        graph.AddEdge(label1, label2);
+        graphPanel.setActiveGraph(graph);
     }
 }
